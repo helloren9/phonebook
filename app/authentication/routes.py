@@ -25,7 +25,7 @@ def signup():
             return redirect(url_for('site.home'))
     except:
         raise Exception('Invalid form data: Please check your form')
-    return render_template('sign-up.html', form=form)
+    return render_template('sign_up.html', form=form)
 
 @auth.route('/signin', methods = ['GET', 'POST'])
 def signin():
@@ -41,9 +41,10 @@ def signin():
             if logged_user and check_password_hash(logged_user.password, password):
                 login_user(logged_user)
                 flash('You were successful in your initiation.', 'auth-success')
-                return redirect(url_for('site-profile'))
+                return redirect(url_for('site.profile'))
             else:
                 flash('You have failed in your attempt to access this content.', 'auth-failed')
+                return redirect(url_for('auth.signin'))
     except:
         raise Exception('Invalid form data: Please check your form')
     return render_template('sign_in.html', form=form)
